@@ -1,7 +1,8 @@
 from django.urls import path
-from .views import TestView
+from .views import FireView, EarthView
 
 
 urlpatterns = [
-        path('test',TestView.as_view(), name='test'),
+        path('fire',FireView.as_view(), name='test'),
+        path('earth',EarthView.as_view(), name='test'),
 ]
