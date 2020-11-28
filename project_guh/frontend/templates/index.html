@@ -1,11 +1,46 @@
 {% extends "base.html" %}
 
+{% block dialogs %}s
+
+<!-- messages and news dialog -->
+<q-dialog v-model="messages" full-width full-height @show="messagesShow()" @hide="messagesHide()">
+      <q-card>
+        <q-card-section>
+          <div class="text-h6">Messages</div>
+        </q-card-section>
+
+        <q-card-section class="q-pt-none">
+          Click/Tap on the backdrop.
+        </q-card-section>
+
+        <q-card-actions align="right" class="bg-white text-teal">
+            <q-btn flat label="OK" v-close-popup ></q-btn>
+        </q-card-actions>
+      </q-card>
+</q-dialog>
+
+
+<!-- city information dialog -->
+<q-dialog v-model="cityinfo" full-width full-height @show="cityShow()" @hide="cityHide()">
+      <q-card>
+        <q-card-section>
+          <div class="text-h6">City information</div>
+        </q-card-section>
+
+        <q-card-section class="q-pt-none">
+          Click/Tap on the backdrop.
+        </q-card-section>
+
+        <q-card-actions align="right" class="bg-white text-teal">
+            <q-btn flat label="OK" v-close-popup ></q-btn>
+        </q-card-actions>
+      </q-card>
+</q-dialog>
+
+{% endblock %}
+
 {% block content %}
 {% load static %}
-
-
-    <div id="app">
-
         <q-layout view="hHr lpR fFf">
             <q-header class="bg-grey-9 text-white" height-hint="98">
               <q-toolbar>
@@ -48,6 +83,7 @@
                     </q-card>
                 </q-expansion-item>
                 </q-list>
+
                 <q-list class="bg-grey-9 text-white" bordered class="rounded-borders q-mt-md">
                 <q-expansion-item
                     dense-toggle
@@ -94,6 +130,7 @@
                 </q-expansion-item>
               </q-list>
 
+
                 <q-list class="bg-grey-9 text-white" bordered class="rounded-borders">
                     <q-expansion-item
                         switch-toggle-side
@@ -101,15 +138,17 @@
                         label="Happening right now">
                         <q-card>
                             <q-card-section>
-                                <!--
                                 <q-btn outline color="black" label="show events" @click="getEvents()">
                                 </q-btn>
+                            </q-card-section>
+                            <q-card-section>
                                 <q-btn outline color="black" label="messages" @click="messages = true">
                                 </q-btn>
-                                <q-btn outline color="black" :label="ftrs   " @click="features()">
-                                </q-btn>
-                                -->
                             </q-card-section>
+                            <q-card-section>
+                                <q-btn outline color="black" label="information about cities" @click="cityinfo = true">
+                                </q-btn>
+                           </q-card-section>
                         </q-card>
                     </q-expansion-item>
                 </q-list>
@@ -130,6 +169,5 @@
             </q-footer> -->
 
           </q-layout>
-    </div>
 
 {% endblock %}

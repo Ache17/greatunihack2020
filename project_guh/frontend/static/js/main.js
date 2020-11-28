@@ -26,6 +26,7 @@ var app = new Vue({
     data : {
         message : "Hello Vue!",
         messages : false,
+        cityinfo : false,
         left : false,
         push_str : "Hide",
     },
@@ -35,6 +36,22 @@ var app = new Vue({
     },
     methods :
         {
+            messagesShow : function ()
+            {
+                console.log("messages show");
+            },
+            messagesHide : function ()
+            {
+                console.log("messages hide");
+            },
+            cityShow : function ()
+            {
+                console.log("city show");
+            },
+            cityHide : function ()
+            {
+                console.log("city hide");
+            },
             showHide : function ()
             {
                 if (this.push_str === "Hide")
@@ -47,8 +64,27 @@ var app = new Vue({
                     this.push_str = "Hide";
                     this.left = true;
                 }
-            }
+            },
+            cityInfo : function ()
+            {
+                console.log("city info");
+            },
+            getEvents : function ()
+            {
+                const xmlhttp = new XMLHttpRequest();
+                xmlhttp.open("GET", "/api/events");
+                xmlhttp.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+                xmlhttp.setRequestHeader('Accept', 'application/json');
+                xmlhttp.onreadystatechange = function ()
+                {
+                    if (xmlhttp.readyState === 4 )
+                    {
+                        let data = JSON.parse(this.responseText);
 
+                    }
+                }
+                xmlhttp.send();
+            }
 
         }
 })
