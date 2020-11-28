@@ -1,0 +1,135 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% load static %}
+
+
+    <div id="app">
+
+        <q-layout view="hHr lpR fFf">
+            <q-header class="bg-grey-9 text-white" height-hint="98">
+              <q-toolbar>
+                <q-toolbar-title>
+                    <q-btn push color="white" text-color="grey-9" :label="push_str"  @click="showHide"></q-btn>
+                  <q-avatar>
+                         <img src="{% static 'icons/logo.png' %}">
+                  </q-avatar>
+                  Kilburn Wizards
+                </q-toolbar-title>
+              </q-toolbar>
+
+              <!--
+              <q-tabs align="left">
+                <q-route-tab to="/page1" label="Page One"> </q-route-tab>
+                <q-route-tab to="/page2" label="Page Two"> </q-route-tab>
+                <q-route-tab to="/page3" label="Page Three"></q-route-tab>
+              </q-tabs>
+                -->
+
+            </q-header>
+
+            <q-drawer show-if-above v-model="left" side="left" bordered>
+              <!-- drawer content -->
+              <q-list class="bg-grey-9 text-white" bordered class="rounded-borders">
+                <q-expansion-item
+                    switch-toggle-side
+                    expand-separator
+                    label="Past events">
+                <q-list class="bg-grey-9 text-white" bordered class="rounded-borders">
+                <q-expansion-item
+                    switch-toggle-side
+                    expand-separator
+                    icon="img:{% static 'icons/fire.png' %}"
+                    label="Fire">
+                    <q-card>
+                    <q-card-section>
+                        <q-btn outline color="red" @click="showFire()">Show Data</q-btn>
+                    </q-card-section>
+                    </q-card>
+                </q-expansion-item>
+                </q-list>
+                <q-list class="bg-grey-9 text-white" bordered class="rounded-borders q-mt-md">
+                <q-expansion-item
+                    dense-toggle
+                    switch-toggle-side
+                    expand-separator
+                    icon="img:{% static 'icons/water.png' %}"
+                    label="Water"
+                >
+                    <q-card>
+                    <q-card-section>
+                        <q-btn outline color="indigo-9" @click="showWater()">Show Data</q-btn>
+                    </q-card-section>
+                    </q-card>
+                </q-expansion-item>
+                </q-list>
+                <q-list class="bg-grey-9 text-white" bordered class="rounded-borders q-mt-md">
+                    <q-expansion-item
+                        dense-toggle
+                        switch-toggle-side
+                        expand-separator
+                        icon="img:{% static 'icons/wind.png' %}"
+                        label="Wind">
+                        <q-card>
+                        <q-card-section>
+                            <q-btn outline color="cyan-2" @click="showEarth()">Show Data</q-btn>
+                        </q-card-section>
+                        </q-card>
+                    </q-expansion-item>
+                </q-list>
+                <q-list class="bg-grey-9 text-white" bordered class="rounded-borders q-mt-md">
+                    <q-expansion-item
+                            dense-toggle
+                            switch-toggle-side
+                            expand-separator
+                            icon="img:{% static 'icons/tree.png' %}"
+                            label="Earth">
+                            <q-card>
+                            <q-card-section>
+                                <q-btn outline color="brown-6" @click="showWind()">Show Data</q-btn>
+                            </q-card-section>
+                            </q-card>
+                        </q-expansion-item>
+                </q-list>
+                </q-expansion-item>
+              </q-list>
+
+                <q-list class="bg-grey-9 text-white" bordered class="rounded-borders">
+                    <q-expansion-item
+                        switch-toggle-side
+                        expand-separator
+                        label="Happening right now">
+                        <q-card>
+                            <q-card-section>
+                                <!--
+                                <q-btn outline color="black" label="show events" @click="getEvents()">
+                                </q-btn>
+                                <q-btn outline color="black" label="messages" @click="messages = true">
+                                </q-btn>
+                                <q-btn outline color="black" :label="ftrs   " @click="features()">
+                                </q-btn>
+                                -->
+                            </q-card-section>
+                        </q-card>
+                    </q-expansion-item>
+                </q-list>
+
+            </q-drawer>
+
+            <q-page-container>
+                <div id='map' class='map'></div>
+            </q-page-container>
+
+            <!-- <q-footer elevated class="bg-grey-8 text-white">
+              <q-toolbar>
+                <q-toolbar-title>
+                    <q-btn push color="white" text-color="primary" :label="push_str"  @click="showHide"></q-btn>
+
+                </q-toolbar-title>
+              </q-toolbar>
+            </q-footer> -->
+
+          </q-layout>
+    </div>
+
+{% endblock %}
