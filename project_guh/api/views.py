@@ -5,7 +5,6 @@ from rest_framework.views import APIView
 from .models import Earthquakes
 import requests
 import os
-import json
 
 current_path = os.path.dirname(__file__)
 fire_pth = os.path.join(current_path, 'fire_data_europe.geojson')
@@ -52,3 +51,11 @@ class NewsViewDirect(APIView):
                 return Response({"Error": "Request failed"})
         else:
             return Response({"Error": "Method not allowed."})
+
+class NewsView(APIView):
+	def get(self,request,query="wildfires"):
+		if request.method == "GET":
+			f = open(os.path.join(os.path.dirname(__file__)+query+'newscache.json'))
+			response = f.read()
+			f.close()
+			return Response(json.loads(response))
