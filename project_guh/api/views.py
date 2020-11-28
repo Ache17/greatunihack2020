@@ -1,27 +1,27 @@
-import json
 from rest_framework.response import Response
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.views import APIView
 from .models import Earthquakes
-import requests
-import os
+import json, requests, os
+from .external_APIs import get_events_nasa_geojson
 
 current_path = os.path.dirname(__file__)
 fire_pth = os.path.join(current_path, 'fire_data_europe.geojson')
-try:
-    with open(fire_pth) as f:
-        fire_content = f.read()
-except Exception as e:
-    fire_content = "{'message' : 'not found'}"
-fire_json = json.loads(fire_content)
-
 earthquakes_pth = os.path.join(current_path, "earth_data.geojson")
-try:
-    with open(earthquakes_pth) as f:
-        earthquakes_content = f.read()
-except Exception as e:
-    earthquakes_content = "{'message' : 'not found'}"
-earthquakes_json = json.loads(earthquakes_content)
+
+
+def load_json_from(path):
+    try:
+        with open(path) as f:
+            content = f.read()
+    except Exception as e:
+        content = "{message : 'not found'}"
+    return json.loads(content)
+
+
+fire_json = load_json_from(fire_pth)
+earthquakes_json = load_json_from(earthquakes_pth)
+events_json = get_events_nasa_geojson()
 
 
 class FireView(APIView):
@@ -38,6 +38,11 @@ class EarthView(APIView):
         return Response(earthquakes_json, content_type='text/json')
 
 
+class EventsView(APIView):
+    def get(self, request):
+        return Response(events_json, content_type="text/json")
+
+
 class NewsViewDirect(APIView):
     def get(self, request, query="wildfires"):
         if request.method == "GET":
@@ -52,10 +57,11 @@ class NewsViewDirect(APIView):
         else:
             return Response({"Error": "Method not allowed."})
 
+
 class NewsView(APIView):
-	def get(self,request,query="wildfires"):
-		if request.method == "GET":
-			f = open(os.path.join(os.path.dirname(__file__)+query+'newscache.json'))
-			response = f.read()
-			f.close()
-			return Response(json.loads(response))
+    def get(self, request, query="wildfires"):
+        if request.method == "GET":
+            f = open(os.path.join(os.path.dirname(__file__) + query + 'newscache.json'))
+            response = f.read()
+            f.close()
+            return Response(json.loads(response))

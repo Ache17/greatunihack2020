@@ -4,7 +4,7 @@
 {% load static %}
 
 <!-- messages and news dialog -->
-<q-dialog v-model="messages" window-width="60" full-height @show="messagesShow()" @hide="messagesHide()">
+    <q-dialog v-model="messages" window-width="60" full-height @show="messagesShow()" @hide="messagesHide()">
       <q-card>
         <q-card-section>
           <div class="text-h6">Messages</div>
@@ -27,15 +27,15 @@
             <keep-alive>
               <div align="center">
                 <p>
-              <a hide_media="true" data-cards="hidden" data-height="800" data-width="500" data-tweet-limit="12" class="twitter-timeline" href="https://twitter.com/QuakesToday">Tweets by QuakesToday</a> 
+              <a hide_media="true" data-cards="hidden" data-height="800" data-width="500" data-tweet-limit="12" class="twitter-timeline" href="https://twitter.com/QuakesToday">Tweets by QuakesToday</a>
               </p>
               <p>
-              <a hide_media="true" data-cards="hidden" data-height="400" data-width="500" data-tweet-limit="4" class="twitter-timeline" href="https://twitter.com/AlertWildfire">Tweets by AlertWildfire</a> 
+              <a hide_media="true" data-cards="hidden" data-height="400" data-width="500" data-tweet-limit="4" class="twitter-timeline" href="https://twitter.com/AlertWildfire">Tweets by AlertWildfire</a>
              </p>
             </div>
-            </keep-alive>  
+            </keep-alive>
           </q-tab-panel>
-  
+
           <q-tab-panel name="news">
             <div class="text-h6">News</div>
           </q-tab-panel>
@@ -73,15 +73,6 @@
                   Kilburn Wizards
                 </q-toolbar-title>
               </q-toolbar>
-
-              <!--
-              <q-tabs align="left">
-                <q-route-tab to="/page1" label="Page One"> </q-route-tab>
-                <q-route-tab to="/page2" label="Page Two"> </q-route-tab>
-                <q-route-tab to="/page3" label="Page Three"></q-route-tab>
-              </q-tabs>
-                -->
-
             </q-header>
 
             <q-drawer show-if-above v-model="left" side="left" bordered>
