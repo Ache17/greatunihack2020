@@ -10,13 +10,31 @@
           <div class="text-h6">Messages</div>
         </q-card-section>
 
-        <q-card-section class="q-pt-none">
-          Click/Tap on the backdrop.
-        </q-card-section>
+        <q-card>
+          <q-tabs
+          v-model="tab"
+          class="text-grey"
+          active-color="primary"
+          indicator-color="primary"
+        >
+          <q-tab @click="twitterShow()" name="twitter" label="Twitter" ></q-tab>
+          <q-tab name="news" label="News" ></q-tab>
+        </q-tabs>
 
-        <q-card-actions align="right" class="bg-white text-teal">
-            <q-btn flat label="OK" v-close-popup ></q-btn>
-        </q-card-actions>
+        <q-tab-panels v-model="tab" animated>
+          <q-tab-panel name="twitter">
+            <keep-alive>
+              <div>
+              <a  data-cards="hidden" data-height="800" data-width="500" data-tweet-limit="12" class="twitter-timeline" href="https://twitter.com/QuakesToday">Tweets by QuakesToday</a> 
+              <a  data-cards="hidden" data-height="400" data-width="500" data-tweet-limit="4" class="twitter-timeline" href="https://twitter.com/AlertWildfire">Tweets by AlertWildfire</a> 
+              </div>
+            </keep-alive>  
+          </q-tab-panel>
+  
+          <q-tab-panel name="news">
+            <div class="text-h6">News</div>
+          </q-tab-panel>
+        </q-tab-panels>
       </q-card>
 </q-dialog>
 

@@ -30,7 +30,8 @@ var app = new Vue({
     fireBtnStateStr: "Show",
     fireID: null,
     earthBtnStateStr: "Show",
-    earthquakesID: null
+    earthquakesID: null,
+    tab: 'twitter'
   },
   mounted: function () {
     addMap("map");
@@ -352,10 +353,18 @@ var app = new Vue({
 
     },
     messagesShow: function () {
-      console.log("messages show");
+        let ckeditor = document.createElement('script');   
+        ckeditor.setAttribute('src',"https://platform.twitter.com/widgets.js");
+        document.head.appendChild(ckeditor);
     },
     messagesHide: function () {
       console.log("messages hide");
+    },
+    twitterShow: function() {
+        let ckeditor = document.createElement('script');   
+        ckeditor.setAttribute('src',"https://platform.twitter.com/widgets.js");
+        document.head.appendChild(ckeditor);
+        //alert("Twitter Showed")
     },
     cityShow: function () {
       console.log("city show");
