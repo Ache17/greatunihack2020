@@ -31,7 +31,22 @@ var app = new Vue({
     fireID: null,
     earthBtnStateStr: "Show",
     earthquakesID: null,
-    tab: 'twitter'
+    tab: 'twitter',
+    cities: [],
+    options_dict: {},
+    columns: [
+        {
+          name: 'name',
+          required: true,
+          label: 'Air Quality Data Unit',
+          align: 'left',
+          field: row => row.name,
+          format: val => `${val}`,
+          sortable: false
+        },
+        { name: 'data_value', align: 'center', label: 'Value', field: 'data_value', sortable: false },
+      ],
+      air_data: []
   },
   mounted: function () {
     addMap("map");
@@ -371,6 +386,65 @@ var app = new Vue({
     },
     cityHide: function () {
       console.log("city hide");
+    },
+    searchCities: function(input) {
+      const url = "https://api.waqi.info/search/?token=" + "8b37278c5f31eded23ca96cebfea5c8e32559a5d" + "&keyword=" + input;
+
+      return new Promise(resolve => {
+        if (input.length < 2) {
+          return resolve([])
+        }
+
+        fetch(url)
+          .then(response => response.json())
+          .then(data => {
+            let limit = 10;
+            let options = [];
+
+           // console.log(data.data[0]);
+
+            if(data.data.length < limit) limit = data.data.length;
+
+            this.options_dict = {};
+            for(let i=0;i<limit;i++) {
+              options.push(data.data[i].station.name);
+              this.options_dict[data.data[i].station.name] = data.data[i].uid;
+            }
+
+            resolve(options);
+          })
+      })
+    },
+    handleSubmit: function(input) {
+      const url = "https://api.waqi.info/feed/@" + this.options_dict[input] + "/?token=" + "8b37278c5f31eded23ca96cebfea5c8e32559a5d";
+
+      fetch(url)
+          .then(response => response.json())
+          .then(data => {
+            var names = {
+              pm25: "PM2.5",
+              pm10: "PM10",
+              o3: "Ozone",
+              no2: "Nitrogen Dioxide",
+              so2: "Sulphur Dioxide",
+              co: "Carbon Monoxyde",
+              t: "Temperature",
+              w: "Wind",
+              r: "Rain (precipitation)",
+              h: "Relative Humidity",
+              d: "Dew",
+              p: "Atmostpheric Pressure",
+            };
+
+            this.air_data = [];
+            for (var specie in data.data.iaqi) {
+              if(!names[specie]) continue;
+
+              this.air_data.push({name: names[specie], data_value:data.data.iaqi[specie].v.toString()});
+            }
+
+            console.log("Done");
+          })
     },
     showHide: function () {
       if (this.push_str === "Hide") {
