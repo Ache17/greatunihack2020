@@ -10,6 +10,7 @@
 </head>
 
 <body>
+    {% load static %}
     <div id="app">
         {% block dialogs %}{% endblock %}
         {% block content %}{% endblock %}
@@ -18,7 +19,8 @@
     <!-- imports -->
     <script src="https://cdn.jsdelivr.net/npm/vue@^2.0.0/dist/vue.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/quasar@1.14.5/dist/quasar.umd.min.js"></script>
-    <script src="static/js/main.js"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+
 
 </body>
 </html>

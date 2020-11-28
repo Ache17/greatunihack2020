@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
-{% block dialogs %}s
+{% block dialogs %}
+{% load static %}
 
 <!-- messages and news dialog -->
 <q-dialog v-model="messages" full-width full-height @show="messagesShow()" @hide="messagesHide()">
@@ -40,8 +41,8 @@
 {% endblock %}
 
 {% block content %}
-{% load static %}
-        <q-layout view="hHr lpR fFf">
+     {% load static %}
+       <q-layout view="hHr lpR fFf">
             <q-header class="bg-grey-9 text-white" height-hint="98">
               <q-toolbar>
                 <q-toolbar-title>
