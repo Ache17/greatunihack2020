@@ -32,7 +32,7 @@ var app = new Vue({
     fireBtnStateStr: "Show",
     fireBtnID: "",
     earthBtnStateStr: "Show",
-    earthquakesID: ""
+    earthquakesID: null
   },
   mounted: function () {
     addMap("map");
@@ -60,7 +60,10 @@ var app = new Vue({
 
     },
     showEarth: function () {
-      if (this.earthquakesID === "") {
+      console.log(this.earthquakesID);
+      if (this.earthquakesID === null)
+      {
+        this.earthquakesID = "earthquakes";
         const xmlhttp = new XMLHttpRequest();
         xmlhttp.open("GET", "/api/earth");
         xmlhttp.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
@@ -68,14 +71,14 @@ var app = new Vue({
         xmlhttp.onreadystatechange = function () {
           if (xmlhttp.readyState === 4) {
             let data = JSON.parse(this.responseText);
-            this.earthquakesID = "earthquakes";
-            map.addSource(this.earthquakesID, {
+
+            map.addSource(app.earthquakesID, {
               "type": "geojson",
               "data": data
             });
 
             map.addLayer({
-              'id': 'earthquakes-heat',
+              'id': app.earthquakesID + "-heat",
               'type': 'heatmap',
               'source': 'earthquakes',
               'maxzoom': 9,
@@ -148,7 +151,7 @@ var app = new Vue({
 
             map.addLayer(
               {
-                'id': 'earthquakes-point',
+                'id': app.earthquakesID + "-point",
                 'type': 'circle',
                 'source': 'earthquakes',
                 'minzoom': 7,
@@ -204,16 +207,15 @@ var app = new Vue({
         xmlhttp.send();
       }
       else {
-          console.log("xd");
             if (this.earthBtnStateStr === "Hide")
             {
                 this.earthBtnStateStr = "Show";
-                map.setLayoutProperty(this.earthquakesID, 'visibility', 'none');
+                map.setLayoutProperty(this.earthquakesID + "-heat", 'visibility', 'none');
             }
             else
             {
                 this.earthBtnStateStr = "Hide";
-                map.setLayoutProperty(this.earthquakesID, 'visibility', 'visible');
+                map.setLayoutProperty(this.earthquakesID + "-heat", 'visibility', 'visible');
             }
       }
 
