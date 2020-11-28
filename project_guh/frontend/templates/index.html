@@ -78,7 +78,7 @@
                     label="Fire">
                     <q-card>
                     <q-card-section>
-                        <q-btn outline color="red" @click="showFire()">Show Data</q-btn>
+                        <q-btn outline color="red" @click="showFire()" :label="fireBtnStateStr"></q-btn>
                     </q-card-section>
                     </q-card>
                 </q-expansion-item>
@@ -108,7 +108,7 @@
                         label="Wind">
                         <q-card>
                         <q-card-section>
-                            <q-btn outline color="cyan-2" @click="showEarth()">Show Data</q-btn>
+                            <q-btn outline color="cyan-2" @click="showWind()">Show Data</q-btn>
                         </q-card-section>
                         </q-card>
                     </q-expansion-item>
@@ -122,7 +122,7 @@
                             label="Earth">
                             <q-card>
                             <q-card-section>
-                                <q-btn outline color="brown-6" @click="showWind()">Show Data</q-btn>
+                                <q-btn outline color="brown-6" :label="earthBtnStateStr" @click="showEarth()"></q-btn>
                             </q-card-section>
                             </q-card>
                         </q-expansion-item>
