@@ -48,53 +48,13 @@
 <q-dialog v-model="cityinfo" full-width full-height @show="cityShow()" @hide="cityHide()">
       <q-card>
         <q-card-section>
-          <div class="text-h6">Local information</div>
+          <div class="text-h6">City information</div>
         </q-card-section>
 
-        <autocomplete class="fixed-center" @submit="handleSubmit" :search="searchCities" placeholder="Search for your city" aria-label="Search for your city" style="width: 500px;"></autocomplete>
-        
-        <div class="q-pa-md">
-        <q-table v-if="this.air_data.length > 0"
-      title="Air quality"
-      :data="air_data"
-      :columns="columns"
-      row-key="name"
-      hide-bottom
-      :rows-per-page-options="[15]">
+        <q-card-section class="q-pt-none">
+          Click/Tap on the backdrop.
+        </q-card-section>
 
-      <template v-slot:body="props">
-        <q-tr :props="props">
-
-          <q-td key="name" :props="props">
-            $[ props.row.name ]$
-          </q-td>
-
-          <q-td v-if="(props.row.name == 'PM2.5' || props.row.name == 'PM10')" key="data_value" :props="props">
-            <q-badge v-if="(props.row.name == 'PM2.5' || props.row.name == 'PM10') && props.row.data_value < 50" color="green">
-              $[ props.row.data_value ]$
-            </q-badge>
-
-            <q-badge v-if="(props.row.name == 'PM2.5' || props.row.name == 'PM10') && (props.row.data_value > 50 && props.row.data_value <= 100)" color="yellow">
-              $[ props.row.data_value ]$
-            </q-badge>
-
-            <q-badge v-if="(props.row.name == 'PM2.5' || props.row.name == 'PM10') && props.row.data_value > 100" color="red">
-              $[ props.row.data_value ]$
-            </q-badge>
-          </q-td>
-
-          <q-td v-else key="data_value" :props="props">$[props.row.data_value]$</q-td>
-
-        </q-tr>
-      </template>
-
-    </q-table>
-  </div>
-
-
-        <q-card-actions align="right" class="bg-white text-teal">
-            <q-btn flat label="OK" v-close-popup ></q-btn>
-        </q-card-actions>
       </q-card>
 </q-dialog>
 
@@ -204,7 +164,6 @@
                         </q-card>
                     </q-expansion-item>
                 </q-list>
-
 
                 <q-list class="bg-grey-9 text-white" bordered class="rounded-borders">
                     <q-expansion-item
