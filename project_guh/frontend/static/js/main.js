@@ -85,7 +85,7 @@ var app = new Vue({
           if(data.data.length != 0) {
             this.fire_info = 'There might be fire around you! Be careful!'
           }
-      })}, 5000);
+      })}, 1000);
 
      setTimeout(() => {
         fetch("https://api.ambeedata.com/latest/by-lat-lng?lat="+geoLocalization._lastKnownPosition.coords.latitude.toString()+"&lng=" + geoLocalization._lastKnownPosition.coords.longitude.toString(), { "method": "GET", "headers": { "x-api-key": "cjAt7Bj4mD2oAdCQHOgMH6RoVqRNJR5N5XuDCO39", "Content-type": "application/json" } }).then(response => response.json()).then(data => { 
@@ -152,15 +152,15 @@ var app = new Vue({
                   0,
                   'rgba(33,102,172,0)',
                   0.2,
-                  'rgb(103,169,207)',
+                  'rgb(255,251,0)',
                   0.4,
-                  'rgb(209,229,240)',
+                  'rgb(253,141,54)',
                   0.6,
-                  'rgb(253,219,199)',
+                  'rgb(253,108,21)',
                   0.8,
-                  'rgb(239,138,98)',
+                  'rgb(255,66,31)',
                   1,
-                  'rgb(178,24,43)'
+                  'rgb(255,0,27)'
                 ],
                 // Adjust the heatmap radius by zoom level
                 'heatmap-radius': [
@@ -210,18 +210,18 @@ var app = new Vue({
                     ['linear'],
                     ['get', 'mag'],
                     1,
-                    'rgba(33,102,172,0)',
+                    'rgb(230,253,12)',
                     2,
-                    'rgb(103,169,207)',
+                    'rgb(255,251,0)',
                     3,
-                    'rgb(209,229,240)',
+                    'rgb(253,141,54)',
                     4,
-                    'rgb(253,219,199)',
+                    'rgb(253,108,21)',
                     5,
-                    'rgb(239,138,98)',
+                    'rgb(255,66,31)',
                     6,
-                    'rgb(178,24,43)'
-                  ],
+                    'rgb(255,0,27)'
+                    ],
                   'circle-stroke-color': 'white',
                   'circle-stroke-width': 1,
                   // Transition from heatmap to circle layer by zoom level
@@ -309,15 +309,16 @@ var app = new Vue({
                   0,
                   'rgba(33,102,172,0)',
                   0.2,
-                  'rgb(103,169,207)',
+                  'rgb(189,157,126)',
                   0.4,
                   'rgb(209,229,240)',
                   0.6,
                   'rgb(253,219,199)',
                   0.8,
-                  'rgb(239,138,98)',
+                  'rgb(119,69,49)',
                   1,
-                  'rgb(178,24,43)'
+                  'rgb(133,71,9)'
+
                 ],
                 // Adjust the heatmap radius by zoom level
                 'heatmap-radius': [
@@ -369,15 +370,15 @@ var app = new Vue({
                     1,
                     'rgba(33,102,172,0)',
                     2,
-                    'rgb(103,169,207)',
-                    3,
                     'rgb(209,229,240)',
-                    4,
+                    3,
                     'rgb(253,219,199)',
+                    4,
+                    'rgb(189,157,126)',
                     5,
-                    'rgb(239,138,98)',
+                    'rgb(119,69,49)',
                     6,
-                    'rgb(178,24,43)'
+                    'rgb(133,71,9)'
                   ],
                   'circle-stroke-color': 'white',
                   'circle-stroke-width': 1,
@@ -420,7 +421,8 @@ var app = new Vue({
         url: "/api/newscached",
         type:"GET",
         dataType: "json",
-        success: function(data){
+        success: function(data)
+        {
           var titles = [];
           var imgs = [];
           var links = [];
@@ -535,7 +537,7 @@ var app = new Vue({
       xmlhttp.onreadystatechange = function () {
         if (xmlhttp.readyState === 4) {
           let data = JSON.parse(this.responseText);
-          map.loadImage('https://docs.mapbox.com/mapbox-gl-js/assets/custom_marker.png',
+          map.loadImage('static/icons/marker.png',
               function (error, image) {
               if (error) throw error;
               map.addImage('custom-marker', image);
@@ -556,6 +558,9 @@ var app = new Vue({
                   ],
                   'text-offset': [0, 1.25],
                   'text-anchor': 'top'
+                },
+                "paint" : {
+                  "text-color" : "#C0C0C0"
                 }
               });
             }

@@ -259,6 +259,12 @@
                                 <q-btn outline color="black" label="information about cities" @click="cityinfo = true">
                                 </q-btn>
                            </q-card-section>
+
+                            <q-card-section>
+                                <q-btn outline color="black" label="show events near you" @click="nearYou()">
+                                </q-btn>
+                            </q-card-section>
+
                         </q-card>
                     </q-expansion-item>
                 </q-list>
@@ -270,10 +276,6 @@
                         expand-separator
                         label="Settings">
                         <q-card>
-                            <q-card-section>
-                                <q-btn outline color="black" label="show events near you" @click="nearYou()">
-                                </q-btn>
-                            </q-card-section>
                         </q-card>
                     </q-expansion-item>
                 </q-list>
