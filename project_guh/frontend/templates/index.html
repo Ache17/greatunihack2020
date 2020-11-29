@@ -19,7 +19,7 @@
           indicator-color="primary"
         >
           <q-tab @click="twitterShow()" name="twitter" label="Twitter" ></q-tab>
-          <q-tab name="news" label="News" ></q-tab>
+          <q-tab @click="newsShow()" name="news" label="News" ></q-tab>
         </q-tabs>
 
         <q-tab-panels v-model="tab" animated>
@@ -36,8 +36,8 @@
             </keep-alive>
           </q-tab-panel>
 
-          <q-tab-panel name="news">
-            <div class="text-h6">News</div>
+          <q-tab-panel name="news" id="toIns">
+            <!-- toIns.js inserts here -->
           </q-tab-panel>
         </q-tab-panels>
       </q-card>
