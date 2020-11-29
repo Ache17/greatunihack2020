@@ -386,6 +386,24 @@ var app = new Vue({
       let ckeditor = document.createElement('script');
       ckeditor.setAttribute('src', "https://platform.twitter.com/widgets.js");
       document.head.appendChild(ckeditor);
+    $.ajax({
+        url: "/api/newscached",
+        type:"GET",
+        dataType: "json",
+        success: function(data){
+          var titles = [];
+          var imgs = [];
+          var links = [];
+          for (i=0;i<20;i++){
+            titles.push(data.articles[i].title);
+            imgs.push(data.articles[i].urlToImage);
+            links.push(data.articles[i].url);
+          }
+          localStorage.setItem("titles",JSON.stringify(titles));
+          localStorage.setItem("imgs",JSON.stringify(imgs));
+          localStorage.setItem("links",JSON.stringify(links));
+          }});
+
     },
     messagesHide: function () {
       console.log("messages hide");
@@ -395,6 +413,11 @@ var app = new Vue({
       ckeditor.setAttribute('src', "https://platform.twitter.com/widgets.js");
       document.head.appendChild(ckeditor);
       //alert("Twitter Showed")
+    },
+    newsShow: function(){
+      let toRun = document.createElement('script');
+      toRun.setAttribute('src',"/static/js/toIns.js");
+      document.head.appendChild(toRun);
     },
     cityShow: function () {
       console.log("city show");
