@@ -36,6 +36,7 @@ var app = new Vue({
     message: "Hello Vue!",
     messages: false,
     cityinfo: false,
+    nearyouinfo: false,
     left: true,
     push_str: "Hide",
     fireBtnStateStr: "Show",
@@ -57,7 +58,11 @@ var app = new Vue({
         },
         { name: 'data_value', align: 'center', label: 'Value', field: 'data_value', sortable: false },
       ],
-      air_data: []
+      air_data: [],
+      fire_info: '',
+      biggest_pollutant: '',
+      conc_level: '',
+      pollution_category: ''
   },
   mounted: function () {
     addMap("map");
@@ -67,6 +72,31 @@ var app = new Vue({
     nearYou : function()
     {
       geoLocalization.trigger();
+      this.nearyouinfo = true;
+      this.fire_info = 'There is currently no risk of fire happening around you!';
+
+     setTimeout(() => {  fetch("https://api.ambeedata.com/latest/fire?lat=" + geoLocalization._lastKnownPosition.coords.latitude.toString() + "&lng=" + geoLocalization._lastKnownPosition.coords.longitude.toString(), {
+      "method": "GET",
+      "headers": {
+      "x-api-key": "cjAt7Bj4mD2oAdCQHOgMH6RoVqRNJR5N5XuDCO39",
+      "Content-type": "application/json"
+      }
+      }).then(response => response.json()).then(data => {
+          if(data.data.length != 0) {
+            this.fire_info = 'There might be fire around you! Be careful!'
+          }
+      })}, 5000);
+
+     setTimeout(() => {
+        fetch("https://api.ambeedata.com/latest/by-lat-lng?lat="+geoLocalization._lastKnownPosition.coords.latitude.toString()+"&lng=" + geoLocalization._lastKnownPosition.coords.longitude.toString(), { "method": "GET", "headers": { "x-api-key": "cjAt7Bj4mD2oAdCQHOgMH6RoVqRNJR5N5XuDCO39", "Content-type": "application/json" } }).then(response => response.json()).then(data => { 
+            this.biggest_pollutant = data.stations[0].aqiInfo.pollutant;
+            this.conc_level = data.stations[0].aqiInfo.concentration;
+            this.pollution_category = data.stations[0].aqiInfo.category;
+        })
+     }, 
+     5000)
+    
+      
     },
     showFire: function () {
       if (this.fireID === null) {

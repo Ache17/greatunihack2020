@@ -98,6 +98,64 @@
       </q-card>
 </q-dialog>
 
+<q-dialog v-model="nearyouinfo" full-width full-height>
+  <q-card>
+      <q-card-section>
+          <div class="text-h6">Natural events around you</div>
+        </q-card-section>
+
+        <div class="q-pa-md row items-start q-gutter-md">
+        <q-card v-if="fire_info.length == 43"style="width: 100%; background-color: #92374D; color: white;">
+          <q-card-section>
+            &#128293; $[fire_info]$
+          </q-card-section>
+        </q-card>
+
+        <q-card v-if="fire_info.length != 43"style="width: 100%; color: black;">
+          <q-card-section>
+            &#128293; $[fire_info]$
+          </q-card-section>
+        </q-card>
+
+        <q-card v-if="conc_level <= 50" class="row justify-center items-center"style="width: 100%; background-color: #83B692; color: white;">
+
+          <img src="{% static 'icons/happy.png' %}" style="width:75px; height: 75px; "/>
+
+          <q-card-section>
+           <p style="margin-bottom: 5px;"><b>Biggest Pollutant: </b> $[biggest_pollutant]$</p>
+            <p style="margin-bottom: 5px;"><b>Concentration Level:</b> $[conc_level]$</p>
+            <p style="margin-bottom: 5px;"><b>Pollution Category: </b> $[pollution_category]$</p>
+          </q-card-section>
+        </q-card>
+
+        <q-card v-if="conc_level > 50 && conc_level <= 100" class="row justify-center items-center" style="width: 100%; background-color: #F4AC45; color: white;">
+
+          <img src="{% static 'icons/neutral.png' %}" style="width:75px; height: 75px; "/>
+          <q-card-section>
+            <p style="margin-bottom: 5px;"><b>Biggest Pollutant: </b> $[biggest_pollutant]$</p>
+            <p style="margin-bottom: 5px;"><b>Concentration Level:</b> $[conc_level]$</p>
+            <p style="margin-bottom: 5px;"><b>Pollution Category: </b> $[pollution_category]$</p>
+          </q-card-section>
+        </q-card>
+
+        <q-card v-if="conc_level > 100" class="row justify-center items-center" style="width: 100%; background-color: #FE5F55; color: white;">
+
+          <img src="{% static 'icons/sad.png' %}" style="width:75px; height: 75px; "/>
+          <q-card-section>
+            <p style="margin-bottom: 5px;"><b>Biggest Pollutant: </b> $[biggest_pollutant]$</p>
+            <p style="margin-bottom: 5px;"><b>Concentration Level:</b> $[conc_level]$</p>
+            <p style="margin-bottom: 5px;"><b>Pollution Category: </b> $[pollution_category]$</p>
+          </q-card-section>
+        </q-card>
+        </div>
+
+      <q-card-actions class="absolute-bottom-right" align="right" class="bg-white text-teal">
+            <q-btn flat label="OK" v-close-popup ></q-btn>
+        </q-card-actions>
+
+  </q-card>
+</q-dialog>
+
 {% endblock %}
 
 {% block content %}
